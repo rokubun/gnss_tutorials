@@ -11,3 +11,9 @@ parts:
   - caption: Satellite Navigation systems
     chapters:
     - file: docs/gnss_observables
+    - file: docs/roti
+    - file: notebooks/iono_combination
+
+  - caption: References
+    chapters:
+    - file: docs/references.md
