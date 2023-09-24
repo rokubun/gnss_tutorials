@@ -4,3 +4,4 @@ _build
 .ipython
 .jupyter
 
+*-checkpoint.*
