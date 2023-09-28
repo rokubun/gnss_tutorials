@@ -2,5 +2,5 @@ jupyter-book
 matplotlib
 numpy
 pandas
-roktools>=5.14
+roktools>=5.16
 sphinx-proof
