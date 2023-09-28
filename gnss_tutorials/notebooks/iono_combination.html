@@ -228,6 +228,55 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/rokubun/gnss_tutorials/master?urlpath=lab/tree/notebooks/iono_combination.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/rokubun/gnss_tutorials/blob/master/notebooks/iono_combination.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
 <div class="dropdown dropdown-source-buttons">
   <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
     <i class="fab fa-github"></i>
@@ -378,6 +427,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-a-rinex">Load a Rinex</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-the-ionospheric-combination">Compute the ionospheric combination</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-delta-stec">Compute <span class="math notranslate nohighlight">\(\Delta STEC\)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-roti">Compute ROTI</a></li>
 </ul>
             </nav>
         </div>
@@ -685,10 +735,14 @@ To peek the first contents of the RINEX file and check how the data is organized
 </div>
 </div>
 </div>
-<p>Finally, in order to compute the ROTI, we need to group the data in batches of 5 minutes and compute the standard deviation for each of these batches. To do this we will use the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.resample.html"><code class="docutils literal notranslate"><span class="pre">resample</span></code> method</a>, but to use this we first need to set the epoch column as index of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
+</section>
+<section id="compute-roti">
+<h2>Compute ROTI<a class="headerlink" href="#compute-roti" title="Permalink to this heading">#</a></h2>
+<p>In order to compute the ROTI, we need to group the data in batches of a certain time period (e.g. 5 minutes) and compute the standard deviation for each of these batches. To do this we will use the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.resample.html"><code class="docutils literal notranslate"><span class="pre">resample</span></code> method</a>, but to use this we first need to set the epoch column as index of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set the epoch as DataFrame time index</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set the epoch as DataFrame time index. The resample method will use</span>
+<span class="c1"># this index as basis for computation</span>
 <span class="n">df_sat_li</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;epoch&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -798,6 +852,7 @@ To peek the first contents of the RINEX file and check how the data is organized
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-a-rinex">Load a Rinex</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-the-ionospheric-combination">Compute the ionospheric combination</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-delta-stec">Compute <span class="math notranslate nohighlight">\(\Delta STEC\)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-roti">Compute ROTI</a></li>
 </ul>
   </nav></div>
 
