@@ -1,3 +1,4 @@
+ipympl
 jupyter-book
 matplotlib
 numpy
