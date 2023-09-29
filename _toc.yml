@@ -13,6 +13,8 @@ parts:
     - file: docs/gnss_observables
     - file: docs/roti
     - file: notebooks/iono_combination
+    - file: docs/low_cost_gnss
+    - file: notebooks/low_cost_gnss
 
   - caption: References
     chapters:
