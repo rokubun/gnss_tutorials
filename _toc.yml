@@ -16,6 +16,10 @@ parts:
     - file: docs/low_cost_gnss
     - file: notebooks/low_cost_gnss
 
+  - caption: Projects
+    chapters:
+    - file: docs/projects
+
   - caption: References
     chapters:
     - file: docs/references.md
