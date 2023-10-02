@@ -1,0 +1,92 @@
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.11.5/x64/lib/python3.11/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/opt/hostedtoolcache/Python/3.11.5/x64/lib/python3.11/site-packages/nbclient/client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.5/x64/lib/python3.11/site-packages/jupyter_core/utils/__init__.py", line 168, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.5/x64/lib/python3.11/asyncio/base_events.py", line 653, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.5/x64/lib/python3.11/site-packages/nbclient/client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "/opt/hostedtoolcache/Python/3.11.5/x64/lib/python3.11/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/hostedtoolcache/Python/3.11.5/x64/lib/python3.11/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+
+satsys = ConstellationId.GPS
+ch_a = TrackingChannel(1, 'C')
+ch_b = TrackingChannel(2, 'W')
+df_geodetic_li = compute_cmc(df_geodetic, satsys, ch_a, ch_b)
+
+ch_a = TrackingChannel(1, 'C')
+ch_b = TrackingChannel(2, 'C')
+df_ublox_li = compute_cmc(df_ublox, satsys, ch_a, ch_b)
+
+
+------------------
+
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mValueError[0m                                Traceback (most recent call last)
+[0;32m/tmp/ipykernel_1841/2485980754.py[0m in [0;36m?[0;34m()[0m
+[1;32m      4[0m [0mdf_geodetic_li[0m [0;34m=[0m [0mcompute_cmc[0m[0;34m([0m[0mdf_geodetic[0m[0;34m,[0m [0msatsys[0m[0;34m,[0m [0mch_a[0m[0;34m,[0m [0mch_b[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      5[0m [0;34m[0m[0m
+[1;32m      6[0m [0mch_a[0m [0;34m=[0m [0mTrackingChannel[0m[0;34m([0m[0;36m1[0m[0;34m,[0m [0;34m'C'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      7[0m [0mch_b[0m [0;34m=[0m [0mTrackingChannel[0m[0;34m([0m[0;36m2[0m[0;34m,[0m [0;34m'C'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 8[0;31m [0mdf_ublox_li[0m [0;34m=[0m [0mcompute_cmc[0m[0;34m([0m[0mdf_ublox[0m[0;34m,[0m [0msatsys[0m[0;34m,[0m [0mch_a[0m[0;34m,[0m [0mch_b[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      9[0m [0;34m[0m[0m
+
+[0;32m/tmp/ipykernel_1841/555191808.py[0m in [0;36m?[0;34m(df, constellation, channel_a, channel_b)[0m
+[1;32m     26[0m         [0;32mreturn[0m [0mgroup[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     27[0m [0;34m[0m[0m
+[1;32m     28[0m     [0;31m# Apply the custom rolling function within each group[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     29[0m     [0mdf_tmp[0m [0;34m=[0m [0mdf_out[0m[0;34m.[0m[0mgroupby[0m[0;34m([0m[0;34m'sat'[0m[0;34m,[0m [0mgroup_keys[0m[0;34m=[0m[0;32mFalse[0m[0;34m)[0m[0;34m.[0m[0mapply[0m[0;34m([0m[0;32mlambda[0m [0mgroup[0m[0;34m:[0m [0mdo_rolling_window[0m[0;34m([0m[0mgroup[0m[0;34m,[0m [0;34m'li_m'[0m[0;34m,[0m [0;34m'li_trend_m'[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 30[0;31m     [0mb[0m [0;34m=[0m [0mdf_tmp[0m[0;34m.[0m[0mgroupby[0m[0;34m([0m[0;34m'sat'[0m[0;34m,[0m [0mgroup_keys[0m[0;34m=[0m[0;32mFalse[0m[0;34m)[0m[0;34m.[0m[0mapply[0m[0;34m([0m[0;32mlambda[0m [0mgroup[0m[0;34m:[0m [0mdo_rolling_window[0m[0;34m([0m[0mgroup[0m[0;34m,[0m [0;34m'pi_m'[0m[0;34m,[0m [0;34m'pi_trend_m'[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     31[0m [0;34m[0m[0m
+[1;32m     32[0m     [0;32mreturn[0m [0mb[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.11.5/x64/lib/python3.11/site-packages/pandas/core/frame.py[0m in [0;36m?[0;34m(self, by, axis, level, as_index, sort, group_keys, observed, dropna)[0m
+[1;32m   8868[0m [0;34m[0m[0m
+[1;32m   8869[0m         [0;32mif[0m [0mlevel[0m [0;32mis[0m [0;32mNone[0m [0;32mand[0m [0mby[0m [0;32mis[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   8870[0m             [0;32mraise[0m [0mTypeError[0m[0;34m([0m[0;34m"You have to supply one of 'by' and 'level'"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   8871[0m [0;34m[0m[0m
+[0;32m-> 8872[0;31m         return DataFrameGroupBy(
+[0m[1;32m   8873[0m             [0mobj[0m[0;34m=[0m[0mself[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   8874[0m             [0mkeys[0m[0;34m=[0m[0mby[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   8875[0m             [0maxis[0m[0;34m=[0m[0maxis[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.11.5/x64/lib/python3.11/site-packages/pandas/core/groupby/groupby.py[0m in [0;36m?[0;34m(self, obj, keys, axis, level, grouper, exclusions, selection, as_index, sort, group_keys, observed, dropna)[0m
+[1;32m   1270[0m         [0mself[0m[0;34m.[0m[0mgroup_keys[0m [0;34m=[0m [0mgroup_keys[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1271[0m         [0mself[0m[0;34m.[0m[0mdropna[0m [0;34m=[0m [0mdropna[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1272[0m [0;34m[0m[0m
+[1;32m   1273[0m         [0;32mif[0m [0mgrouper[0m [0;32mis[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1274[0;31m             grouper, exclusions, obj = get_grouper(
+[0m[1;32m   1275[0m                 [0mobj[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1276[0m                 [0mkeys[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1277[0m                 [0maxis[0m[0;34m=[0m[0maxis[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.11.5/x64/lib/python3.11/site-packages/pandas/core/groupby/grouper.py[0m in [0;36m?[0;34m(obj, key, axis, level, sort, observed, validate, dropna)[0m
+[1;32m    995[0m [0;34m[0m[0m
+[1;32m    996[0m         [0;32melif[0m [0mis_in_axis[0m[0;34m([0m[0mgpr[0m[0;34m)[0m[0;34m:[0m  [0;31m# df.groupby('name')[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    997[0m             [0;32mif[0m [0mobj[0m[0;34m.[0m[0mndim[0m [0;34m!=[0m [0;36m1[0m [0;32mand[0m [0mgpr[0m [0;32min[0m [0mobj[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    998[0m                 [0;32mif[0m [0mvalidate[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 999[0;31m                     [0mobj[0m[0;34m.[0m[0m_check_label_or_level_ambiguity[0m[0;34m([0m[0mgpr[0m[0;34m,[0m [0maxis[0m[0;34m=[0m[0maxis[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1000[0m                 [0min_axis[0m[0;34m,[0m [0mname[0m[0;34m,[0m [0mgpr[0m [0;34m=[0m [0;32mTrue[0m[0;34m,[0m [0mgpr[0m[0;34m,[0m [0mobj[0m[0;34m[[0m[0mgpr[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1001[0m                 [0;32mif[0m [0mgpr[0m[0;34m.[0m[0mndim[0m [0;34m!=[0m [0;36m1[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1002[0m                     [0;31m# non-unique columns; raise here to get the name in the[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.11.5/x64/lib/python3.11/site-packages/pandas/core/generic.py[0m in [0;36m?[0;34m(self, key, axis)[0m
+[1;32m   1797[0m             msg = (
+[1;32m   1798[0m                 [0;34mf"'{key}' is both {level_article} {level_type} level and "[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1799[0m                 [0;34mf"{label_article} {label_type} label, which is ambiguous."[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1800[0m             )
+[0;32m-> 1801[0;31m             [0;32mraise[0m [0mValueError[0m[0;34m([0m[0mmsg[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m
+[0;31mValueError[0m: 'sat' is both an index level and a column label, which is ambiguous.
+

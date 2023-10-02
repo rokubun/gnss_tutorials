@@ -23,4 +23,4 @@ An example of the ROTI calculation for a 1Hz dataset of SEY1 station (2014, doy 
 
 ![Juan et al. 2017 Figure 2b](../assets/juanetal2017_fig2b_roti_sey1.png)
 
-In this recipe we will replicate this figure (for the SEY1 station) using the methodology described in {prf:ref}`roti`
+
