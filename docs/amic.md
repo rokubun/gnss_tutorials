@@ -7,6 +7,12 @@ Is a project funded by the European Space Agency[^contractnum] to build an
 affordable dense network of GNSS Continuousy Operating Reference Stations,
 specially suited for remote areas.
 
+```{admonition} Want to host a receiver?
+Fill out this [form](https://forms.gle/VMpzRQvP6fnRSeiw6)
+```
+
+[^contractnum]: ESA contract number 4000130532/20/NL/AS/hh
+
 ## Why another network?
 
 The main problem of current networks are the areas with scarcity of GNSS
@@ -29,7 +35,9 @@ continents are also being considered.
 
 ## The network receivers
 
-The AMIC GNSS receiver is a receiver based on the [u-blox ZED-F9P](https://www.u-blox.com/en/product/zed-f9p-module) GNSS chipset, which is a dual frequency (L1/L2/E5b) receiver able to track multiple constellations (GPS, Galileo, Beidou, Glonass, QZSS, ...).
+The AMIC GNSS receiver is a receiver based on the [u-blox ZED-F9P](https://www.u-blox.com/en/product/zed-f9p-module) GNSS chipset, which is a dual frequency (L1/L2/E5b) receiver able to track multiple constellations (GPS, Galileo, Beidou, Glonass, QZSS, ...). The AMIC receiver is a MEDEA GNSS computer
+developed by Rokubun, which follows the trend of the new generation of
+[affordable GNSS receivers](./low_cost_gnss.md).
 
 The power consumption of the device is very low (similar to the consumption of a Raspberry Pi).
 
@@ -48,9 +56,3 @@ The AMIC receivers have these additional characteristics:
 - Storing data in **RINEX** file, with file rotation of 15 minutes.
 - Whenever a new RINEX file is available and connectivity is up, it will be **automatically uploaded** to ESA's GSSC servers.
 - The receiver can handle intermittent Internet connectivity outages, as it can store ca 1 month worth of data.
-
-```{admonition} Want to host a receiver?
-Fill out this [form](https://forms.gle/VMpzRQvP6fnRSeiw6)
-```
-
-[^contractnum]: ESA contract number 4000130532/20/NL/AS/hh
