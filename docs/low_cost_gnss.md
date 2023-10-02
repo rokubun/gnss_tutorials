@@ -11,17 +11,3 @@ antenna as well. Examples of such antennas are:
 
 - Tallysman TW7972, dual frequency, ~200€ per unit
 - Jinchang JCA228B, dual-frequency, ~60€ per unit
-
-## AMIC network
-
-For affordable ionospheric monitoring
-
-ESA contract
-
-Types of receivers
-
-Institutions
-
-Network
-
-Data delivery through ESA GSSC (ACORN Data set AMIC Continuous Operating Receiver Network)

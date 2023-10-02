@@ -19,6 +19,7 @@ parts:
   - caption: Projects
     chapters:
     - file: docs/projects
+    - file: docs/amic
 
   - caption: References
     chapters:
