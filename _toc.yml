@@ -11,11 +11,12 @@ parts:
   - caption: Satellite Navigation systems
     chapters:
       - file: docs/gnss_observables
+      - file: docs/low_cost_gnss
+        sections:
+        - file: notebooks/low_cost_gnss
       - file: docs/roti
         sections:
         - file: notebooks/roti
-      - file: docs/low_cost_gnss
-      - file: notebooks/low_cost_gnss
 
   - caption: Projects
     chapters:
