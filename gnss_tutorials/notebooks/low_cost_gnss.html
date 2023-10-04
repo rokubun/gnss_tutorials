@@ -432,6 +432,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#observable-types">Observable types</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-noise-detrended-code-minus-carrier">Code noise: Detrended code-minus-carrier</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#observable-noise-detrended-li">Observable noise: Detrended LI</a></li>
 </ul>
             </nav>
@@ -446,27 +447,42 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="low-cost-gnss-data-quality">
 <h1>Low cost GNSS Data quality<a class="headerlink" href="#low-cost-gnss-data-quality" title="Permalink to this heading">#</a></h1>
-<p>In this section we will check</p>
-<p>The data provided hee corresponds to</p>
-<div class="cell docutils container">
+<p>In this section we will assess some basic differences in terms of GNSS observables
+between a geodetic-grade and an affordable receiver.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">roktools</span> <span class="kn">import</span> <span class="n">rinex</span>
+
+<span class="c1"># Instructions to import code within the custom source folder</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../source/&#39;</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">roktools</span></code> library, the RINEX data from the receivers will be stored
+into a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> (<code class="docutils literal notranslate"><span class="pre">df</span></code> for short) for manipulation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># DataFrame with data from a geodetic receiver</span>
+<span class="n">df_geodetic</span> <span class="o">=</span> <span class="n">rinex</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">(</span><span class="s1">&#39;../assets/SEYG00SYC_R_20140581500_05H_01S_MO.rnx&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_geodetic</span> <span class="o">=</span> <span class="n">rinex</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">(</span><span class="s1">&#39;../assets/SEYG00SYC_R_20140581500_05H_01S_MO.rnx&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ublox</span> <span class="o">=</span> <span class="n">rinex</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">(</span><span class="s1">&#39;../assets/MTIC00ESP_R_20191221131_05H_01S_MO.rnx&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># DataFrame with an affordable receiver</span>
+<span class="n">df_afford</span> <span class="o">=</span> <span class="n">rinex</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">(</span><span class="s1">&#39;../assets/MTIC00ESP_R_20191221131_05H_01S_MO.rnx&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -519,15 +535,15 @@ dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>constellation            channel
-ConstellationId.BEIDOU   2I          95280
-ConstellationId.GALILEO  1C         106261
-                         7Q         106261
-ConstellationId.GPS      1C         138731
-                         2L         138731
-ConstellationId.GLONASS  1C         111380
-                         2C         111380
-dtype: int64
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Use groupby() to group by the two columns and apply unique()</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">unique_combinations</span> <span class="o">=</span> <span class="n">df_ublox</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># Print the unique combinations</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="nb">print</span><span class="p">(</span><span class="n">unique_combinations</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;df_ublox&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -538,6 +554,38 @@ dtype: int64
 <li><p>Availability of SNR and Doppler measurements (not always available in 30s or high rate CORS data)</p></li>
 <li><p>High rate up to 0.1s (or even higher) available for affordable measurements</p></li>
 </ul>
+</section>
+<section id="code-noise-detrended-code-minus-carrier">
+<h2>Code noise: Detrended code-minus-carrier<a class="headerlink" href="#code-noise-detrended-code-minus-carrier" title="Permalink to this heading">#</a></h2>
+<p>The observable code noise of a GNSS receiver can be estimated using the
+<a class="reference internal" href="../docs/gnss_observables.html#cmc-combination"><span class="std std-ref">code-minus-carrier combination</span></a>. This section illustrates
+how to estimate to check some basic differences between receiver types</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gnss.observables</span> <span class="kn">import</span> <span class="n">compute_code_minus_carrier</span>
+<span class="kn">from</span> <span class="nn">gnss.edit</span> <span class="kn">import</span> <span class="n">mark_time_gap</span><span class="p">,</span> <span class="n">detrend</span><span class="p">,</span> <span class="n">remove_mean</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">mark_time_gap</span><span class="p">(</span><span class="n">df_geodetic</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">compute_code_minus_carrier</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">detrend</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;cmc&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">remove_mean</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;cmc_detrended&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_sub</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;signal&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;E121X&#39;</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="c1">#plt.plot(df_sub[&#39;epoch&#39;], df_sub[&#39;cmc&#39;], &#39;.&#39;)</span>
+<span class="c1">#plt.plot(df_sub[&#39;epoch&#39;], , &#39;.&#39;)</span>
+
+<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df_sub</span><span class="p">[</span><span class="s1">&#39;cmc_detrended_aligned&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="observable-noise-detrended-li">
 <h2>Observable noise: Detrended LI<a class="headerlink" href="#observable-noise-detrended-li" title="Permalink to this heading">#</a></h2>
@@ -583,110 +631,9 @@ or the code noise (if PI is used instead)</p>
 
 <span class="k">def</span> <span class="nf">get_seconds_since_start</span><span class="p">(</span><span class="n">epochs</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Converts a pandas series of epochs into a list of seconds relative to the first epoch</span>
+<span class="sd">    Converts a pandas series of epochs into a list of secodf.head()nds relative to the first epoch</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">epochs</span> <span class="o">-</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">satsys</span> <span class="o">=</span> <span class="n">ConstellationId</span><span class="o">.</span><span class="n">GPS</span>
-<span class="n">ch_a</span> <span class="o">=</span> <span class="n">TrackingChannel</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">)</span>
-<span class="n">ch_b</span> <span class="o">=</span> <span class="n">TrackingChannel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;W&#39;</span><span class="p">)</span>
-<span class="n">df_geodetic_li</span> <span class="o">=</span> <span class="n">compute_cmc</span><span class="p">(</span><span class="n">df_geodetic</span><span class="p">,</span> <span class="n">satsys</span><span class="p">,</span> <span class="n">ch_a</span><span class="p">,</span> <span class="n">ch_b</span><span class="p">)</span>
-
-<span class="n">ch_a</span> <span class="o">=</span> <span class="n">TrackingChannel</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">)</span>
-<span class="n">ch_b</span> <span class="o">=</span> <span class="n">TrackingChannel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">)</span>
-<span class="n">df_ublox_li</span> <span class="o">=</span> <span class="n">compute_cmc</span><span class="p">(</span><span class="n">df_ublox</span><span class="p">,</span> <span class="n">satsys</span><span class="p">,</span> <span class="n">ch_a</span><span class="p">,</span> <span class="n">ch_b</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="nn">/tmp/ipykernel_1841/2485980754.py</span> in <span class="ni">?</span><span class="nt">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">df_geodetic_li</span> <span class="o">=</span> <span class="n">compute_cmc</span><span class="p">(</span><span class="n">df_geodetic</span><span class="p">,</span> <span class="n">satsys</span><span class="p">,</span> <span class="n">ch_a</span><span class="p">,</span> <span class="n">ch_b</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> 
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">ch_a</span> <span class="o">=</span> <span class="n">TrackingChannel</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">ch_b</span> <span class="o">=</span> <span class="n">TrackingChannel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">)</span>
-<span class="ne">----&gt; </span><span class="mi">8</span> <span class="n">df_ublox_li</span> <span class="o">=</span> <span class="n">compute_cmc</span><span class="p">(</span><span class="n">df_ublox</span><span class="p">,</span> <span class="n">satsys</span><span class="p">,</span> <span class="n">ch_a</span><span class="p">,</span> <span class="n">ch_b</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> 
-
-<span class="nn">/tmp/ipykernel_1841/555191808.py</span> in <span class="ni">?</span><span class="nt">(df, constellation, channel_a, channel_b)</span>
-<span class="g g-Whitespace">     </span><span class="mi">26</span>         <span class="k">return</span> <span class="n">group</span>
-<span class="g g-Whitespace">     </span><span class="mi">27</span> 
-<span class="g g-Whitespace">     </span><span class="mi">28</span>     <span class="c1"># Apply the custom rolling function within each group</span>
-<span class="g g-Whitespace">     </span><span class="mi">29</span>     <span class="n">df_tmp</span> <span class="o">=</span> <span class="n">df_out</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;sat&#39;</span><span class="p">,</span> <span class="n">group_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">group</span><span class="p">:</span> <span class="n">do_rolling_window</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="s1">&#39;li_m&#39;</span><span class="p">,</span> <span class="s1">&#39;li_trend_m&#39;</span><span class="p">))</span>
-<span class="ne">---&gt; </span><span class="mi">30</span>     <span class="n">b</span> <span class="o">=</span> <span class="n">df_tmp</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;sat&#39;</span><span class="p">,</span> <span class="n">group_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">group</span><span class="p">:</span> <span class="n">do_rolling_window</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="s1">&#39;pi_m&#39;</span><span class="p">,</span> <span class="s1">&#39;pi_trend_m&#39;</span><span class="p">))</span>
-<span class="g g-Whitespace">     </span><span class="mi">31</span> 
-<span class="g g-Whitespace">     </span><span class="mi">32</span>     <span class="k">return</span> <span class="n">b</span>
-
-<span class="nn">/opt/hostedtoolcache/Python/3.11.5/x64/lib/python3.11/site-packages/pandas/core/frame.py</span> in <span class="ni">?</span><span class="nt">(self, by, axis, level, as_index, sort, group_keys, observed, dropna)</span>
-<span class="g g-Whitespace">   </span><span class="mi">8868</span> 
-<span class="g g-Whitespace">   </span><span class="mi">8869</span>         <span class="k">if</span> <span class="n">level</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">by</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">8870</span>             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;You have to supply one of &#39;by&#39; and &#39;level&#39;&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">8871</span> 
-<span class="ne">-&gt; </span><span class="mi">8872</span>         <span class="k">return</span> <span class="n">DataFrameGroupBy</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">8873</span>             <span class="n">obj</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">8874</span>             <span class="n">keys</span><span class="o">=</span><span class="n">by</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">8875</span>             <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span>
-
-<span class="nn">/opt/hostedtoolcache/Python/3.11.5/x64/lib/python3.11/site-packages/pandas/core/groupby/groupby.py</span> in <span class="ni">?</span><span class="nt">(self, obj, keys, axis, level, grouper, exclusions, selection, as_index, sort, group_keys, observed, dropna)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1270</span>         <span class="bp">self</span><span class="o">.</span><span class="n">group_keys</span> <span class="o">=</span> <span class="n">group_keys</span>
-<span class="g g-Whitespace">   </span><span class="mi">1271</span>         <span class="bp">self</span><span class="o">.</span><span class="n">dropna</span> <span class="o">=</span> <span class="n">dropna</span>
-<span class="g g-Whitespace">   </span><span class="mi">1272</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1273</span>         <span class="k">if</span> <span class="n">grouper</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1274</span>             <span class="n">grouper</span><span class="p">,</span> <span class="n">exclusions</span><span class="p">,</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">get_grouper</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1275</span>                 <span class="n">obj</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1276</span>                 <span class="n">keys</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1277</span>                 <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span>
-
-<span class="nn">/opt/hostedtoolcache/Python/3.11.5/x64/lib/python3.11/site-packages/pandas/core/groupby/grouper.py</span> in <span class="ni">?</span><span class="nt">(obj, key, axis, level, sort, observed, validate, dropna)</span>
-<span class="g g-Whitespace">    </span><span class="mi">995</span> 
-<span class="g g-Whitespace">    </span><span class="mi">996</span>         <span class="k">elif</span> <span class="n">is_in_axis</span><span class="p">(</span><span class="n">gpr</span><span class="p">):</span>  <span class="c1"># df.groupby(&#39;name&#39;)</span>
-<span class="g g-Whitespace">    </span><span class="mi">997</span>             <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">gpr</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">998</span>                 <span class="k">if</span> <span class="n">validate</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">999</span>                     <span class="n">obj</span><span class="o">.</span><span class="n">_check_label_or_level_ambiguity</span><span class="p">(</span><span class="n">gpr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1000</span>                 <span class="n">in_axis</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">gpr</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">gpr</span><span class="p">,</span> <span class="n">obj</span><span class="p">[</span><span class="n">gpr</span><span class="p">]</span>
-<span class="g g-Whitespace">   </span><span class="mi">1001</span>                 <span class="k">if</span> <span class="n">gpr</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1002</span>                     <span class="c1"># non-unique columns; raise here to get the name in the</span>
-
-<span class="nn">/opt/hostedtoolcache/Python/3.11.5/x64/lib/python3.11/site-packages/pandas/core/generic.py</span> in <span class="ni">?</span><span class="nt">(self, key, axis)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1797</span>             <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1798</span>                 <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39; is both </span><span class="si">{</span><span class="n">level_article</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">level_type</span><span class="si">}</span><span class="s2"> level and &quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1799</span>                 <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label_article</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">label_type</span><span class="si">}</span><span class="s2"> label, which is ambiguous.&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1800</span>             <span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1801</span>             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-
-<span class="ne">ValueError</span>: &#39;sat&#39; is both an index level and a column label, which is ambiguous.
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">df_geodetic_li</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;sat&#39;</span><span class="p">,</span> <span class="n">group_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">group</span><span class="p">:</span> <span class="n">do_rolling_window</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="s1">&#39;li_m&#39;</span><span class="p">,</span> <span class="s1">&#39;li_trend_m&#39;</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;sat&#39;</span><span class="p">,</span> <span class="n">group_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">group</span><span class="p">:</span> <span class="n">do_rolling_window</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="s1">&#39;pi_m&#39;</span><span class="p">,</span> <span class="s1">&#39;pi_trend_m&#39;</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-<span class="n">seconds</span> <span class="o">=</span> <span class="n">get_seconds_since_start</span><span class="p">(</span><span class="n">df_geodetic_li</span><span class="p">[</span><span class="s1">&#39;epoch&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">seconds</span><span class="p">,</span> <span class="n">df_geodetic_li</span><span class="p">[</span><span class="s1">&#39;li_m&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_geodetic_li</span><span class="p">[</span><span class="s1">&#39;li_trend_m&#39;</span><span class="p">],</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
-
-<span class="n">seconds</span> <span class="o">=</span> <span class="n">get_seconds_since_start</span><span class="p">(</span><span class="n">df_ublox_li</span><span class="p">[</span><span class="s1">&#39;epoch&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">seconds</span><span class="p">,</span> <span class="n">df_ublox_li</span><span class="p">[</span><span class="s1">&#39;li_m&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_ublox_li</span><span class="p">[</span><span class="s1">&#39;li_trend_m&#39;</span><span class="p">],</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -758,6 +705,7 @@ or the code noise (if PI is used instead)</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#observable-types">Observable types</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-noise-detrended-code-minus-carrier">Code noise: Detrended code-minus-carrier</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#observable-noise-detrended-li">Observable noise: Detrended LI</a></li>
 </ul>
   </nav></div>
