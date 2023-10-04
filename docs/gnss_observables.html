@@ -176,8 +176,17 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Satellite Navigation systems</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">GNSS observables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="roti.html">Rate ot TEC Index (ROTI)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../notebooks/iono_combination.html">Recipe: ROTI</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="roti.html">Rate ot TEC Index (ROTI)</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/roti.html">Recipe: ROTI</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="low_cost_gnss.html">Observables from low cost GNSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/low_cost_gnss.html">Low cost GNSS Data quality</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Projects</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="projects.html">Related projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amic.html">AMIC project</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
@@ -223,6 +232,55 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="header-article-item">
 
 <div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/rokubun/gnss_tutorials/master?urlpath=lab/tree/docs/gnss_observables.md" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/rokubun/gnss_tutorials/blob/master/docs/gnss_observables.md" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
 
 
 
@@ -280,6 +338,23 @@ const thebe_selector_output = ".output, .cell_output"
     <i class="fas fa-download"></i>
   </button>
   <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/docs/gnss_observables.ipynb" target="_blank"
+   class="btn btn-sm btn-download-notebook-button dropdown-item"
+   title="Download notebook file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
       
       
       
@@ -378,6 +453,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#observable-model">Observable model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#observable-combination">Observable combination</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ionospheric-geometry-free-combination">Ionospheric (geometry-free) combination</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-minus-carrier-combination">Code minus carrier combination</a></li>
 </ul>
 </li>
 </ul>
@@ -454,6 +530,20 @@ Code Bias (DCB) between the codes <span class="math notranslate nohighlight">\(P
 <p>This combination is usually employed when building models for ionospheric estimation
 due to the fact that the Slant Total Electron Content (STEC) is exposed.</p>
 </section>
+<section id="code-minus-carrier-combination">
+<span id="cmc-combination"></span><h3>Code minus carrier combination<a class="headerlink" href="#code-minus-carrier-combination" title="Permalink to this heading">#</a></h3>
+<p>This combination (also called code/carrier divergence) is defined as follows</p>
+<div class="math notranslate nohighlight" id="equation-cmc">
+<span class="eqno">(2)<a class="headerlink" href="#equation-cmc" title="Permalink to this equation">#</a></span>\[CMC_{a} = P_a - L_a = 2 \cdot \frac{40.3}{f_a^2} \cdot STEC_r^s + b_{P,a} - b_{L,a} - {\lambda}_a \cdot N_a + \varepsilon_P -  \varepsilon_L\]</div>
+<p>The combination has twice the ionospheric combination, plus several constant
+terms (biases, ambiguity) and the code and phase noises. Note however that
+the code noise is much higher than the phase one. Therefore, if the
+ionospheric contribution is removed (using a rolling window to detrend it or
+removing the STEC computed from e.g. IONEX maps) and the bias is removed,
+the CMC can serve as <strong>noise estimator</strong> of the observables.</p>
+<p>In addition, for high-rate applications (&gt; 1Hz), large jumps in the CMC
+(larger than the code noise level, ~ 1 m) can indicate the presence of <strong>cycle slips</strong>.</p>
+</section>
 </section>
 </section>
 
@@ -523,6 +613,7 @@ due to the fact that the Slant Total Electron Content (STEC) is exposed.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#observable-model">Observable model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#observable-combination">Observable combination</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ionospheric-geometry-free-combination">Ionospheric (geometry-free) combination</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-minus-carrier-combination">Code minus carrier combination</a></li>
 </ul>
 </li>
 </ul>
