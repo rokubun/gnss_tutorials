@@ -61,7 +61,6 @@ On the other hand, the ionospheric combination of phases can be expressed as:
 LI_{a,b} = P_b - P_a = 40.3 \cdot \left ( \frac{1}{f_a^2} - \frac{1}{f_b^2} \right) \cdot STEC_r^s + b_{L,b} - b_{L,a} + {\lambda}_b \cdot N_b - {\lambda}_a \cdot N_a + \sqrt{2} \cdot \varepsilon_L
 ```
 
-
 In GNSS textbooks, the term $40.3 \cdot \left ( \frac{1}{f_a^2} - \frac{1}{f_b^2} \right)$ is usually referred to the alpha constant $\alpha_{LI}$ for the given frequencies
 
 For example, the $\alpha_{LI}$ for GPS L1 and L2 frequencies can be computed as follows:
@@ -75,3 +74,23 @@ Code Bias (DCB) between the codes $P_a$ and $P_b$ (i.e. $DCB(P_a, P_b)$).
 
 This combination is usually employed when building models for ionospheric estimation
 due to the fact that the Slant Total Electron Content (STEC) is exposed.
+
+(cmc_combination)=
+### Code minus carrier combination
+
+This combination (also called code/carrier divergence) is defined as follows
+
+```{math}
+:label: cmc
+CMC_{a} = P_a - L_a = 2 \cdot \frac{40.3}{f_a^2} \cdot STEC_r^s + b_{P,a} - b_{L,a} - {\lambda}_a \cdot N_a + \varepsilon_P -  \varepsilon_L
+```
+
+The combination has twice the ionospheric combination, plus several constant
+terms (biases, ambiguity) and the code and phase noises. Note however that
+the code noise is much higher than the phase one. Therefore, if the
+ionospheric contribution is removed (using a rolling window to detrend it or
+removing the STEC computed from e.g. IONEX maps) and the bias is removed,
+the CMC can serve as **noise estimator** of the observables.
+
+In addition, for high-rate applications (> 1Hz), large jumps in the CMC
+(larger than the code noise level, ~ 1 m) can indicate the presence of **cycle slips**.
