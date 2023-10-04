@@ -26,3 +26,7 @@ parts:
   - caption: References
     chapters:
     - file: docs/references.md
+
+  - caption: Acknowledgements
+    chapters:
+    - file: docs/acknowledgements.md
