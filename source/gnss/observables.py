@@ -6,7 +6,7 @@ def compute_geometry_free(data: pd.DataFrame, constellation: ConstellationId, ch
     Compute the geometry (ionospheric free combination)
     """
 
-    columns = ['epoch', 'constellation', 'sat', 'channel', 'range', 'phase', 'slip']
+    columns = ['epoch', 'constellation', 'sat', 'channel', 'signal', 'range', 'phase', 'slip']
 
     # Create a new dataframe
     df = data[columns].copy()
