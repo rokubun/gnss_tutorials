@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Observables from low cost GNSS &#8212; GNSS data processing</title>
+    <title>Affordable receivers &#8212; GNSS data processing</title>
   
   
   
@@ -174,7 +174,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Satellite Navigation systems</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="gnss_observables.html">GNSS observables</a></li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Observables from low cost GNSS</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Affordable receivers</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../notebooks/low_cost_gnss.html">Measurement quality from affordable GNSS receivers</a></li>
 </ul>
 </li>
@@ -376,7 +376,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Observables from low cost GNSS</h1>
+    <h1>Affordable receivers</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -390,20 +390,59 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="observables-from-low-cost-gnss">
-<h1>Observables from low cost GNSS<a class="headerlink" href="#observables-from-low-cost-gnss" title="Permalink to this heading">#</a></h1>
-<p>List of affordable GNSS receivers / chipsets</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="affordable-receivers">
+<h1>Affordable receivers<a class="headerlink" href="#affordable-receivers" title="Permalink to this heading">#</a></h1>
+<p>With the reduction of cost in chipsets and technologies, the GNSS sector is also
+experiencing a change in paradigm in terms of hardware cost as well. Centimetric
+accuracy used to require expensive hardware (GNSS chipset/receiver and good quality
+antenna), but nowadays alternatives are already in the market.</p>
+<p>The trend was started by chipset manufacturers that launched System-on-Chip (SoC)
+at a very competitive price. Examples of such systems are:</p>
 <ul class="simple">
 <li><p>u-blox (ZED-F9 family), dual-frequency, ~100€ per unit</p></li>
-<li><p>Unicorecomm UM982, multi-constellation, triple-frequency, ~400€ per units</p></li>
 <li><p>Septentrio Mosaic receiver, multi-constellation, triple-frequency, ~500€ per units</p></li>
+<li><p>Unicorecomm UM982, multi-constellation, triple-frequency, ~400€ per units</p></li>
 </ul>
-<p>A critical aspect of affordable receivers is not only the device but the
-antenna as well. Examples of such antennas are:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p></p></th>
+<th class="head text-center"><p></p></th>
+<th class="head text-center"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><img alt="ZED-F9P" src="../_images/ZED-F9P.png" /></p></td>
+<td class="text-center"><p><img alt="Septentrio Mosaic" src="../_images/mosaic.jpg" /></p></td>
+<td class="text-center"><p><img alt="Unicorecomm UM982" src="../_images/unicorecomm_UM982.png" /></p></td>
+</tr>
+</tbody>
+</table>
+<p>A critical aspect of affordable receivers is not only the GNSS chipset itself, but the
+antenna as well. This will be also largely responsible for the quality of the
+GNSS observables/measurements and, therefore, the accuracy that can be achieved in
+the estimation of the position. For maximum accuracy, Choke ring antennas
+(see left panel of Figure below) are usually employed. However, budget antennas
+such as the one shown in the right panel of the following Figure, are capable
+of providing good quality measures, as will be shown in this section.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p></p></th>
+<th class="head text-center"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><img alt="Choke ring antenna" src="../_images/choke_ring_antenna.png" /></p></td>
+<td class="text-center"><p><img alt="Talysmann TW7972" src="../_images/talysmann_tw7972.jpg" /></p></td>
+</tr>
+</tbody>
+</table>
+<p>Examples of bduget GNSS antennas that can offer good measurement quality are:</p>
 <ul class="simple">
 <li><p>Tallysman TW7972, dual frequency, ~200€ per unit</p></li>
 <li><p>Jinchang JCA228B, dual-frequency, ~60€ per unit</p></li>
 </ul>
+<p>These hardware needs to be integrated. Evaluation kits with a Raspberry Pi might work but eventually the whole set of components needs to be integrated (which adds cost). An example of a GNSS device that integrates budget chipset and antenna is Rokubun’s MEDEA computer (see Figure below), based on a u-blox ZED-F9P and an application processor to load third-party software to process GNSS measurements (as done in the <a class="reference internal" href="amic.html"><span class="doc std std-doc">AMIC project</span></a>)</p>
+<p><img alt="MEDEA GNSS computer" src="../_images/MEDEA.png" /></p>
 <div class="toctree-wrapper compound">
 </div>
 </section>
