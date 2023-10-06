@@ -364,9 +364,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -382,14 +380,6 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#developing-notebooks">Developing notebooks</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -403,21 +393,14 @@ document.write(`
 <h1>GNSS data processing with Python<a class="headerlink" href="#gnss-data-processing-with-python" title="Permalink to this heading">#</a></h1>
 <p>Welcome to the hands-on tutorials for GNSS data processing using Python and
 Jupyter Notebooks/book</p>
-<p>The tutorials are written using Jupyter books but can be executed independently
+<p>The tutorials are written using <a class="reference external" href="https://jupyterbook.org">Jupyter books</a> but can be executed independently
 using tools such as Binder.</p>
 <p>To do so, click on the following badge:  <a class="reference external" href="https://mybinder.org/v2/gh/rokubun/gnss_tutorials/HEAD"><img alt="Binder" src="https://mybinder.org/badge_logo.svg" /></a></p>
 <p>Otherwise, keep reading 😉</p>
-<section id="developing-notebooks">
-<h2>Developing notebooks<a class="headerlink" href="#developing-notebooks" title="Permalink to this heading">#</a></h2>
-<p>If you’d like to fork the project and modify the Notebooks, you can do so by
-using a Jupyter Notebook Docker image</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-v<span class="w"> </span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>:/home/jovyan<span class="w"> </span>-p<span class="w"> </span><span class="m">9999</span>:8888<span class="w"> </span>-ti<span class="w"> </span>jupyter/datascience-notebook
-</pre></div>
-</div>
-<p>Open the browser at this <a class="reference external" href="http://127.0.0.1:9999">url</a>.</p>
-<p>You can open the notebooks and edit them from Jupyterhub. The changes will be
-persistent, so they will modify your local folders.</p>
-</section>
+<p>💡 Do you want to see some specific content? Feel free to submit a
+<a class="reference external" href="https://github.com/rokubun/gnss_tutorials/issues/new">new issue in the Github repository of this book</a>
+and make sure you specify <strong>feature request</strong> label for the issue. We will try
+to do our best to add it.</p>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
@@ -475,20 +458,6 @@ persistent, so they will modify your local folders.</p>
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#developing-notebooks">Developing notebooks</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
