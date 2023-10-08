@@ -5,7 +5,7 @@
 
 Is a project funded by the European Space Agency[^contractnum] to build an
 affordable dense network of GNSS Continuousy Operating Reference Stations,
-specially suited for remote areas.
+specially aimed at densifying areas with a low density of GNSS receivers.
 
 ```{admonition} Want to host a receiver?
 Fill out this [form](https://forms.gle/VMpzRQvP6fnRSeiw6)
@@ -25,7 +25,7 @@ a network based entirely on affordable receivers logging data and sending them t
 
 ![ESA GSSC Data portal](../assets/esa_gssc_data_portal.png)
 
-An important point of th project and the network is that the
+An important point of the project and the network is that the
 **data will be publicly available**. A first set of deployment sites of the ACORN network can be seen in the following figure.
 
 ![AMIC network](../assets/amic_network.png)
