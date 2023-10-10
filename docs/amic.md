@@ -7,10 +7,6 @@ Is a project funded by the European Space Agency[^contractnum] to build an
 affordable dense network of GNSS Continuousy Operating Reference Stations,
 specially aimed at densifying areas with a low density of GNSS receivers.
 
-```{admonition} Want to host a receiver?
-Fill out this [form](https://forms.gle/VMpzRQvP6fnRSeiw6)
-```
-
 [^contractnum]: ESA contract number 4000130532/20/NL/AS/hh
 
 ## Why another network?
