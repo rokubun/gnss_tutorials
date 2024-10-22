@@ -1,6 +1,7 @@
 _build
 .cache
 .local
+.npm
 .ipython
 .jupyter
 
