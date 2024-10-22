@@ -3,5 +3,6 @@ jupyter-book
 matplotlib
 numpy
 pandas
-roktools>=5.20
+pyarrow
+roktools>=6.6.1
 sphinx-proof
